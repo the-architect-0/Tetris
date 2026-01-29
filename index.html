@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pirate's Booty Tetris</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pirata+One&family=UnifrakturMaguntia&family=Cinzel+Decorative:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <div class="ocean-background">
+        <div class="ocean"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="pirate-ship"></div>
+    </div>
+
+    <!-- Main game container -->
+    <div class="container">
+        <!-- Game header -->
+        <div class="game-header">
+            <h1 class="game-title">Pirate's Booty Tetris</h1>
+            <p class="game-subtitle">Arrange the treasure before the sea claims it!</p>
+        </div>
+
+        <!-- Game board area -->
+        <div class="game-board-container">
+            <!-- Game board -->
+            <div class="game-board" id="game-board"></div>
+            
+            <!-- Mobile controls (only visible on mobile) -->
+            <div class="mobile-controls">
+                <button class="control-button left" data-action="left">←</button>
+                <button class="control-button rotate" data-action="rotate">↻</button>
+                <button class="control-button right" data-action="right">→</button>
+                <button class="control-button down" data-action="down">↓</button>
+                <button class="control-button drop" data-action="drop">↓</button>
+                <button class="control-button pause" data-action="pause">⏸</button>
+            </div>
+        </div>
+
+        <!-- Game info panel -->
+        <div class="game-info">
+            <!-- Game stats -->
+            <div class="parchment-panel">
+                <h2 class="panel-title">Captain's Log</h2>
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <div class="stat-label">Booty Collected</div>
+                        <div class="stat-value" id="score">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Planks Scraped</div>
+                        <div class="stat-value" id="lines">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Level</div>
+                        <div class="stat-value" id="level">1</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Next Rank</div>
+                        <div class="stat-value" id="next-rank">50</div>
+                    </div>
+                </div>
+                
+                <!-- Pirate rank -->
+                <div class="rank-indicator">
+                    <div class="rank-icon" id="rank-icon">🏴‍☠️</div>
+                    <div class="rank-name" id="rank-name">Powder Monkey</div>
+                </div>
+            </div>
+
+            <!-- Next piece preview -->
+            <div class="parchment-panel">
+                <h2 class="panel-title">Lookout's Spyglass</h2>
+                <div class="piece-container-title">Next Treasure</div>
+                <div class="piece-preview" id="next-piece-container"></div>
+            </div>
+
+            <!-- Hold piece -->
+            <div class="parchment-panel">
+                <h2 class="panel-title">Pirate's Stash</h2>
+                <div class="piece-container-title">Hold Treasure</div>
+                <div class="piece-preview" id="hold-piece-container"></div>
+                <div class="instructions">Press 'C' to hold a piece</div>
+            </div>
+
+            <!-- Controls -->
+            <div class="parchment-panel">
+                <h2 class="panel-title">Ship's Controls</h2>
+                <div class="controls-container">
+                    <div class="control-buttons">
+                        <button class="control-button left" data-action="left">← Left</button>
+                        <button class="control-button rotate" data-action="rotate">↻ Rotate</button>
+                        <button class="control-button right" data-action="right">→ Right</button>
+                        <button class="control-button down" data-action="down">↓ Down</button>
+                        <button class="control-button drop" data-action="drop">↓ Drop</button>
+                        <button class="control-button pause" data-action="pause">⏸ Pause</button>
+                    </div>
+                    <div class="instructions">
+                        Use <span class="key-instruction">←</span> <span class="key-instruction">→</span> to move,
+                        <span class="key-instruction">↑</span> to rotate,
+                        <span class="key-instruction">↓</span> to speed up,
+                        <span class="key-instruction">Space</span> to drop,
+                        <span class="key-instruction">P</span> to pause,
+                        <span class="key-instruction">C</span> to hold piece
+                    </div>
+                </div>
+            </div>
+
+            <!-- High scores -->
+            <div class="parchment-panel high-scores">
+                <h2 class="panel-title">Captain's Log (High Scores)</h2>
+                <div id="high-scores-list">
+                    <!-- High scores will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game start screen -->
+    <div class="game-start-screen" id="start-screen">
+        <div class="screen-content">
+            <h2 class="screen-title">Pirate's Booty Tetris</h2>
+            <p class="screen-message">
+                Arrr, me hearty! Arrange the falling treasure before the sea claims it!
+                Clear planks to collect booty and rise through the pirate ranks.
+                Watch for special events like Cannon Blasts and Parrot Assistants!
+            </p>
+            <button class="screen-button" id="start-button">Set Sail!</button>
+            <div class="instructions" style="margin-top: 20px;">
+                <p>Select Game Mode:</p>
+                <div style="display: flex; gap: 10px; justify-content: center; margin-top: 10px;">
+                    <button class="screen-button mode-button" data-mode="normal">Normal Seas</button>
+                    <button class="screen-button mode-button" data-mode="stormy">Stormy Seas</button>
+                    <button class="screen-button mode-button" data-mode="treasure">Treasure Hunt</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game pause screen -->
+    <div class="game-pause-screen hidden" id="pause-screen">
+        <div class="screen-content">
+            <h2 class="screen-title">Game Paused</h2>
+            <p class="screen-message">The ship is at anchor. Ready to continue your voyage?</p>
+            <button class="screen-button" id="resume-button">Resume Voyage</button>
+            <button class="screen-button" id="restart-button">Abandon Ship & Restart</button>
+        </div>
+    </div>
+
+    <!-- Game over screen -->
+    <div class="game-over-screen hidden" id="game-over-screen">
+        <div class="screen-content">
+            <h2 class="screen-title">Shipwrecked!</h2>
+            <p class="screen-message" id="game-over-message">Your booty has been lost to the sea!</p>
+            <div class="final-stats">
+                <p>Final Booty: <span id="final-score">0</span></p>
+                <p>Planks Scraped: <span id="final-lines">0</span></p>
+                <p>Highest Rank: <span id="final-rank">Powder Monkey</span></p>
+            </div>
+            <button class="screen-button" id="play-again-button">Set Sail Again!</button>
+        </div>
+    </div>
+
+    <!-- Event notifications -->
+    <div id="event-notification" class="event-notification hidden"></div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>Pirate's Booty Tetris - Created with HTML, CSS, and JavaScript</p>
+    </div>
+
+    <script src="main.js">
+        // Game Constants
+        </script>
+</body>
+</html>

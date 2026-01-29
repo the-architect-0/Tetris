@@ -1,0 +1,618 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cinzel Decorative', cursive;
+            background-color: #0a1a2a;
+            color: #f0e6d2;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Ocean background with waves */
+        .ocean-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .ocean {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #1a3a5f 0%, #0a1a2a 100%);
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"/></svg>');
+            background-size: 100% 100px;
+            animation: wave 15s linear infinite;
+        }
+
+        .wave:nth-child(1) {
+            opacity: 0.7;
+            animation-duration: 20s;
+        }
+
+        .wave:nth-child(2) {
+            opacity: 0.5;
+            animation-duration: 25s;
+            animation-delay: -5s;
+        }
+
+        .wave:nth-child(3) {
+            opacity: 0.3;
+            animation-duration: 30s;
+            animation-delay: -2s;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .pirate-ship {
+            position: absolute;
+            bottom: 120px;
+            right: 5%;
+            width: 200px;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100"><path d="M10,70 L190,70 Q200,50 190,30 L10,30 Q0,50 10,70 Z" fill="%235D4037" stroke="%233E2723" stroke-width="2"/><path d="M100,30 L100,10 L120,10 L120,30 Z" fill="%23795548"/><path d="M130,30 L130,15 L150,15 L150,30 Z" fill="%23795548"/><polygon points="160,30 160,10 180,10 180,30" fill="%23795548"/><path d="M50,30 L50,10 L70,10 L70,30 Z" fill="%23795548"/><path d="M30,20 L30,10 L40,10 L40,20 Z" fill="%23795548"/><path d="M10,30 L30,10 L40,10 L20,30 Z" fill="%23A1887F"/><path d="M160,30 L180,10 L190,10 L170,30 Z" fill="%23A1887F"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: shipFloat 8s ease-in-out infinite;
+        }
+
+        @keyframes shipFloat {
+            0%, 100% { transform: translateY(0px) rotate(0.5deg); }
+            50% { transform: translateY(-10px) rotate(-0.5deg); }
+        }
+
+        /* Main container */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+            z-index: 1;
+        }
+
+        /* Game header */
+        .game-header {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(139, 69, 19, 0.8);
+            border: 5px solid #8B4513;
+            border-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%238B4513"/><path d="M0,0 L100,100 M100,0 L0,100" stroke="%235D4037" stroke-width="3"/></svg>') 10 round;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+        }
+
+        .game-title {
+            font-family: 'Pirata One', cursive;
+            font-size: 3.5rem;
+            color: #FFD700;
+            text-shadow: 3px 3px 0 #8B0000, 6px 6px 0 rgba(0, 0, 0, 0.5);
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .game-subtitle {
+            font-family: 'UnifrakturMaguntia', cursive;
+            font-size: 1.5rem;
+            color: #F0E6D2;
+            font-style: italic;
+        }
+
+        /* Game board area */
+        .game-board-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-template-rows: repeat(20, 1fr);
+            width: 300px;
+            height: 600px;
+            background-color: #8B4513;
+            border: 8px solid #5D4037;
+            box-shadow: 
+                inset 0 0 20px rgba(0, 0, 0, 0.7),
+                0 10px 30px rgba(0, 0, 0, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-board::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(139, 69, 19, 0.7), rgba(139, 69, 19, 0.7)),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="3" fill="%235D4037" opacity="0.3"/></svg>');
+            z-index: 0;
+        }
+
+        /* Game info panel */
+        .game-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            min-width: 280px;
+        }
+
+        /* Parchment-style panels */
+        .parchment-panel {
+            background-color: #F5E6CA;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M0,0 Q50,20 100,0 L100,100 Q50,80 0,100 Z" fill="%23F5E6CA" opacity="0.3"/></svg>');
+            border: 8px solid #8B4513;
+            border-radius: 5px;
+            padding: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            color: #5D4037;
+            position: relative;
+        }
+
+        .parchment-panel::before {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 2px solid #D7CCC8;
+            border-radius: 2px;
+            pointer-events: none;
+        }
+
+        .panel-title {
+            font-family: 'Pirata One', cursive;
+            font-size: 1.8rem;
+            color: #8B0000;
+            text-align: center;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #8B4513;
+            padding-bottom: 5px;
+        }
+
+        /* Stats panel */
+        .stats-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            background: rgba(139, 69, 19, 0.1);
+            border-radius: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #5D4037;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #8B0000;
+            font-family: 'Pirata One', cursive;
+        }
+
+        /* Next piece and hold piece containers */
+        .piece-preview {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+            background-color: rgba(139, 69, 19, 0.3);
+            border: 3px solid #8B4513;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .piece-preview::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="2" fill="%235D4037" opacity="0.2"/></svg>');
+        }
+
+        .piece-container-title {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #8B0000;
+        }
+
+        /* Controls */
+        .controls-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .control-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .control-button {
+            background-color: #8B4513;
+            color: #FFD700;
+            border: 3px solid #5D4037;
+            border-radius: 5px;
+            padding: 12px 5px;
+            font-family: 'Pirata One', cursive;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .control-button:hover {
+            background-color: #A0522D;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .control-button:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .control-button.rotate {
+            grid-column: span 3;
+        }
+
+        .mobile-controls {
+            display: none;
+        }
+
+        /* Game cells */
+        .cell {
+            width: 100%;
+            height: 100%;
+            border: 1px solid rgba(93, 64, 55, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Pirate-themed block types */
+        .block-i { background-color: #C0C0C0; } /* Cannonball - Silver */
+        .block-j { background-color: #8B4513; } /* Cutlass - Brown */
+        .block-l { background-color: #FFD700; } /* Doubloon - Gold */
+        .block-o { background-color: #DAA520; } /* Treasure Chest - Goldenrod */
+        .block-s { background-color: #FF0000; } /* Jolly Roger - Red */
+        .block-t { background-color: #808080; } /* Anchor - Gray */
+        .block-z { background-color: #1E90FF; } /* Spyglass - Blue */
+        
+        /* Special blocks */
+        .block-special { background-color: #FF69B4; } /* Parrot Assistant - Pink */
+        .block-power { background-color: #8B0000; } /* Cannon Blast - Dark Red */
+
+        /* Block styling with pirate icons */
+        .cell.block-i::after,
+        .cell.block-j::after,
+        .cell.block-l::after,
+        .cell.block-o::after,
+        .cell.block-s::after,
+        .cell.block-t::after,
+        .cell.block-z::after,
+        .cell.block-special::after,
+        .cell.block-power::after {
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            background-color: inherit;
+            border-radius: 3px;
+            box-shadow: 
+                inset 0 0 5px rgba(255, 255, 255, 0.3),
+                inset 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Block icons */
+        .block-i::before { content: "●"; color: #333; font-size: 0.7rem; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; }
+        .block-j::before { content: "⚔"; color: #5D4037; font-size: 0.9rem; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(45deg); z-index: 2; }
+        .block-l::before { content: "🪙"; font-size: 0.9rem; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; }
+        .block-o::before { content: "📦"; font-size: 0.9rem; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; }
+        .block-s::before { content: "🏴‍☠️"; font-size: 0.7rem; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; }
+        .block-t::before { content: "⚓"; color: #333; font-size: 0.9rem; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; }
+        .block-z::before { content: "🔍"; color: #000; font-size: 0.7rem; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; }
+
+        /* Game states */
+        .game-start-screen, .game-pause-screen, .game-over-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 26, 42, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            padding: 20px;
+        }
+
+        .screen-content {
+            background-color: #F5E6CA;
+            border: 10px solid #8B4513;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            color: #5D4037;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .screen-title {
+            font-family: 'Pirata One', cursive;
+            font-size: 3rem;
+            color: #8B0000;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0 #FFD700;
+        }
+
+        .screen-message {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .screen-button {
+            background-color: #8B4513;
+            color: #FFD700;
+            border: 3px solid #5D4037;
+            border-radius: 5px;
+            padding: 15px 30px;
+            font-family: 'Pirata One', cursive;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.2s;
+        }
+
+        .screen-button:hover {
+            background-color: #A0522D;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Events and animations */
+        .event-notification {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(139, 69, 19, 0.9);
+            color: #FFD700;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-family: 'Pirata One', cursive;
+            font-size: 1.8rem;
+            z-index: 100;
+            animation: fadeInOut 3s forwards;
+            border: 3px solid #FFD700;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.7);
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            15% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+            20% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            80% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .clearing-line {
+            animation: lineClear 0.5s forwards;
+        }
+
+        @keyframes lineClear {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        .board-shake {
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        /* Pirate rank indicator */
+        .rank-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .rank-icon {
+            font-size: 2rem;
+        }
+
+        .rank-name {
+            font-family: 'Pirata One', cursive;
+            font-size: 1.5rem;
+            color: #8B0000;
+        }
+
+        /* Instructions */
+        .instructions {
+            font-size: 0.9rem;
+            margin-top: 15px;
+            text-align: center;
+            color: #5D4037;
+        }
+
+        .key-instruction {
+            display: inline-block;
+            background-color: #5D4037;
+            color: #F0E6D2;
+            padding: 2px 8px;
+            border-radius: 3px;
+            margin: 0 3px;
+            font-family: monospace;
+        }
+
+        /* High scores */
+        .high-scores {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .high-score-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 15px;
+            background-color: rgba(139, 69, 19, 0.2);
+            margin-bottom: 5px;
+            border-radius: 3px;
+        }
+
+        .high-score-name {
+            font-weight: bold;
+        }
+
+        .high-score-value {
+            font-family: 'Pirata One', cursive;
+            color: #8B0000;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #F0E6D2;
+            opacity: 0.8;
+        }
+
+        /* Responsive design */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .game-info {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+            }
+            
+            .parchment-panel {
+                min-width: 250px;
+            }
+            
+            .game-title {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .game-board {
+                width: 250px;
+                height: 500px;
+            }
+            
+            .game-title {
+                font-size: 2.2rem;
+            }
+            
+            .panel-title {
+                font-size: 1.5rem;
+            }
+            
+            .control-buttons {
+                display: none;
+            }
+            
+            .mobile-controls {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(2, 1fr);
+                gap: 10px;
+                margin-top: 20px;
+                width: 100%;
+            }
+            
+            .mobile-controls .control-button {
+                padding: 15px 5px;
+                font-size: 1.5rem;
+            }
+            
+            .mobile-controls .rotate {
+                grid-column: span 3;
+            }
+            
+            .screen-title {
+                font-size: 2.2rem;
+            }
+            
+            .screen-content {
+                padding: 20px;
+            }
+        }
